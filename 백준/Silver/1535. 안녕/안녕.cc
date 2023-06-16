@@ -1,28 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, mx;
+int d[105];
 int a[25], b[25]; //체력 점수
-
-void solve(int hp, int cnt, int cur) {
-	if (hp <= 0 || cur > n) return;
-	mx = max(mx, cnt);
-
-	solve(hp - a[cur], cnt + b[cur], cur + 1);
-	solve(hp , cnt, cur + 1);
-}
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	
+	int n;
 	cin >> n;
-	for (int i = 0; i < n; i++)
+
+	for (int i = 1; i <= n; i++) 
 		cin >> a[i];
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
 		cin >> b[i];
 
-	solve(100, 0, 0);
+	for (int i = 1; i <= n; i++) {
+		for (int j = 100; j > a[i]; j--) {
+			d[j] = max(d[j], d[j - a[i]] + b[i]);
+		}
+	}
 
-	cout << mx;
+	cout << d[100];
 }
