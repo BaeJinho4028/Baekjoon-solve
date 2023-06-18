@@ -2,17 +2,16 @@
 using namespace std;
 
 int n;
-set<int> se;
+bool chk[2000005];
 int a[22];
 
-void solve(int chk, int num, int cur) {
-	if (cur == chk) {
-		se.insert(num);
+void solve(int num, int cur) {
+	chk[num] = true;
+	if (cur == n) 
 		return;
-	}
 
-	solve(chk, num + a[cur], cur + 1);
-	solve(chk, num, cur + 1);
+	solve(num + a[cur], cur + 1);
+	solve(num, cur + 1);
 }
 
 int main() {
@@ -26,11 +25,11 @@ int main() {
 	}
 
 	for (int i = 1; i <= n; i++) {
-		solve(i, 0, 0);
+		solve(0, 0);
 	}
 
-	for (int i = 1; i < 2000000; i++) {
-		if (se.find(i) == se.end()) {
+	for (int i = 1; i <= 2000000; i++) {
+		if (!chk[i]) {
 			cout << i;
 			return 0;
 		}
