@@ -9,7 +9,6 @@ set<string> ans;
 stack<int> st;
 vector<pair<int, int>> v;
 
-bool vis[205];
 bool ch[205];
 
 void dfs(int cur, int idx) {
@@ -23,13 +22,10 @@ void dfs(int cur, int idx) {
 	}
 
 	for (int i = idx; i < v.size(); i++) {
-		if (vis[i]) continue;
 
-		vis[i] = true;
 		ch[v[i].X] = true;
 		ch[v[i].Y] = true;
-		dfs(cur + 1, idx + 1);
-		vis[i] = false;
+		dfs(cur + 1, i + 1);
 		ch[v[i].X] = false;
 		ch[v[i].Y] = false;
 	}
