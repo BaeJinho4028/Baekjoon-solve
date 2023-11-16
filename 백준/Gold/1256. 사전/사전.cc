@@ -4,45 +4,48 @@ typedef long long ll;
 #define X first
 #define Y second
 
-ll d[205][105];
-
-ll comb(int n, int r) {
-	if (n == r || r == 0) return 1;
-	ll& ret = d[n][r];
-	if (~ret) return d[n][r];
-
-	ll a = comb(n - 1, r - 1);
-	ll b = comb(n - 1, r);
-	if (a + b > 1000000000) return ret = 0x3f3f3f3f3f3f3f3f;
-
-	return d[n][r] = comb(n-1, r-1) + comb(n - 1, r);
-}
-
-void f(int n, int m, ll k) {
-	ll tmp = comb(n + m - 1, n - 1);
-	if (n > 0 && k <= tmp) {
-		cout << 'a';
-		f(n - 1, m, k);
-	}
-	else if (m > 0) {
-		cout << 'z';
-		f(n, m - 1, k - tmp);
-	}
-}
+ll d[105][105];
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	int n, m, k;
+	ll n, m, k;
 	cin >> n >> m >> k;
 
-	memset(d, -1, sizeof(d));
+	for (int i = 0; i <= n; i++) {
+		for (int j = 0; j <= m; j++) {
+			d[i][j] = 1;
+		}
+	}
 
-	if (comb(n+m, min(n,m)) < k) {
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (d[i - 1][j] + d[i][j - 1] > 1000000000) d[i][j] = 0x3f3f3f3f3f3f3f3f;
+			else d[i][j] = d[i - 1][j] + d[i][j - 1];
+		}
+	}
+
+	if (d[n][m] < k) {
 		cout << -1;
 		return 0;
 	}
 	
-	f(n, m, k);
+	while (n > 0 && m > 0 ) {
+		ll tmp = d[n - 1][m]; //첫자리 a인 문자열 개수
+
+		if (k <= tmp) {
+			n--;
+			cout << 'a';
+		}
+		else {
+			m--;
+			cout << 'z';
+			k -= tmp;
+		}
+	}
+
+	while (n--) cout << 'a';
+	while (m--) cout << 'z';
+
 }
