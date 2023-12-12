@@ -24,6 +24,7 @@ int main() {
 
 	int ans = 0;
 	for (int i = 0; i < n; i++) {
+		if (k == 0) break;
 		if (l >= v[i].X) {
 			ans += 140;
 			k--;
@@ -32,7 +33,6 @@ int main() {
 			ans += 100;
 			k--;
 		}
-		if (k == 0) break;
 	}
 	cout << ans;
 }
