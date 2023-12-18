@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-#define X first
-#define Y second
 
 int n;
 int c[16][16];
@@ -17,7 +14,6 @@ int f(int cur, int vis) {
 
 	int& ret = d[cur][vis];
 	if (~ret) return ret;
-
 	ret = '????';
 
 	for (int i = 0; i < n; i++) {
