@@ -18,9 +18,8 @@ int main() {
 	cin.tie(0);
 
 	cin >> n >> k;
-	k = min((ll)1000000000, k);
 
-	ll st = 1, en = n * n;
+	ll st = 0, en = n * n;
 
 	while (st <= en) {
 		ll mid = (st + en) / 2;
