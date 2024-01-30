@@ -14,18 +14,19 @@ int main() {
 	cin >> s;
 
 	int st = 0, en = 0, cnt = 0, ans = 0;;
-	while (1) {
-		while (cnt <= n && en < s.size()) {
-			if (!az[s[en] - 'a']) cnt++;
-			az[s[en++] - 'a']++;
-			if (cnt > n) break;
-			ans = max(ans, en - st);
-		}
-		if (en == s.size()) break;
+	
+	while(en < s.size()) {
+		if (!az[s[en] - 'a']) cnt++;
+		az[s[en] - 'a']++;
+
 		while (cnt > n) {
 			az[s[st] - 'a']--;
-			if (!az[s[st++] - 'a']) cnt--;
+			if (!az[s[st] - 'a']) cnt--;
+			st++;
 		}
+
+		ans = max(ans, en - st + 1);
+		en++;
 	}
 
 	cout << ans;
