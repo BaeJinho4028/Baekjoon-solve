@@ -13,8 +13,7 @@ bool cmp(string a, string b) {
 
 string f(int x, bool first) {
 	if (d[x] != "" && vis[x]) return d[x];
-
-	string mx = "";
+	vis[x] = true;
 	
 	for (int i = 0; i < n; i++) {
 		if (i == 0 && first) continue;
@@ -22,12 +21,10 @@ string f(int x, bool first) {
 
 		string tmp = to_string(i) + f(x - p[i], false);
 
-		if (cmp(mx, tmp)) mx = tmp;
+		if (cmp(d[x], tmp)) d[x] = tmp;
 	}
-	d[x] = mx;
-	vis[x] = true;
 
-	return mx;
+	return d[x];
 }
 
 int main() {
